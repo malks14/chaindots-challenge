@@ -1,0 +1,33 @@
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+  text-decoration: none;
+}
+
+
+
+img {
+  max-width: 100%;
+}
+
+.mainBody {
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.navCtn a.active {
+  padding-bottom: 0.25rem;
+  border-bottom: 4px solid #ffffff;
+  border-radius: 0;
+}
+
+footer {
+  background-color: green;
+  margin-top: auto;
+}
