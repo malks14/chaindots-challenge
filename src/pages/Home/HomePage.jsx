@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useContext }  from "react";
 import { Container } from "@mui/material";
 import CardCity from "../../components/CardCity/CardCity";
 import SearchBar from "../../components/SearchBar/SearchBar";
 
 
 const HomePage = () => {
+
   return (
     <Container maxWidth="xs" sx={{ mt: 2 }}>
       <h1>Chaindots - WeatherApp</h1>

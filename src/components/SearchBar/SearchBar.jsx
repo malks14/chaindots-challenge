@@ -1,11 +1,13 @@
-import React, {useState} from "react";
+import React, {useState, useContext} from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { Button, CircularProgress } from "@mui/material";
-
+import WeatherContext from "../../store/cityWeather-context";
 
 
 const SearchBar = () => {
+    const {fetchWeather} = useContext(WeatherContext)
+
     const [formCityData, setFormCityData] = useState("");
     const [error, setError] = useState({
         isError: false,
@@ -25,15 +27,16 @@ const SearchBar = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        setIsLoading(true);
-        console.log(formCityData)
-        if (!validateCity(formCityData)) {
-            setError({
-                isError: true,
-                message: "Only alphabetical characters can be used"
-            })
-        }
-        setIsLoading(false);
+        fetchWeather(formCityData)
+        // setIsLoading(true);
+        // console.log(formCityData)
+        // if (!validateCity(formCityData)) {
+        //     setError({
+        //         isError: true,
+        //         message: "Only alphabetical characters can be used"
+        //     })
+        // }
+        // setIsLoading(false);
     };
 
   return (
@@ -43,7 +46,7 @@ const SearchBar = () => {
     >
       <TextField id="city" label="City" variant="outlined" required error={error.isError} helperText={error.message} value={formCityData} onChange={onFormFieldChange}/>
       {/* <Button type="submit" variant="contained">Submit</Button> */}
-      {isLoading && <CircularProgress />}
+      {/* {isLoading && <CircularProgress />} */}
     </Box>
   );
 };

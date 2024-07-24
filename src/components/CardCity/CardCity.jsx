@@ -1,7 +1,11 @@
-import React from 'react'
-import { Button, Card, CardActions, CardContent } from '@mui/material'
+import React, { useContext }  from 'react'
+import { Button, Card, CardActions, CardContent, Typography } from '@mui/material'
+import WeatherContext from '../../store/cityWeather-context'
+
 
 const CardCity = () => {
+  const {weatherData} = useContext(WeatherContext)
+  console.log(weatherData.location);
   return (
     <Card sx={{
       transition: "0.2s",
@@ -11,8 +15,11 @@ const CardCity = () => {
       mt: 5
     }}>
         <CardContent>
-            <h3>Ciudad</h3>
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatibus, iste. Porro eum sapiente sequi quod deserunt optio itaque eveniet, accusamus eaque molestias rerum amet quibusdam atque error velit quisquam animi.</p>
+            <Typography component="h3" variant='h3' sx={{textAlign: 'center'}}>Ciudad</Typography>
+            <p>Temperature:{weatherData.current.temp_c}C</p>
+            <p>Description:</p>
+            <p>Humidity:</p>
+            <p>Wind Speed:</p>
         </CardContent>
         <CardActions>
           <Button>More</Button>

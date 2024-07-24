@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import NavListDrawer from "./NavListDrawer";
 import {
   AppBar,
@@ -14,14 +14,12 @@ import HomeIcon from "@mui/icons-material/Home";
 import LoginIcon from "@mui/icons-material/Login";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { NavLink } from "react-router-dom";
+import AuthContext from "../../../store/auth-context";
 
-const navLinks = [
-  { title: "Home", path: "/", icon: <HomeIcon /> },
-  { title: "Login", path: "/auth/login", icon: <LoginIcon /> },
-  { title: "Logout", path: "/test", icon: <LogoutIcon /> },
-];
+
 
 const NavBar = () => {
+  const authCtx = useContext(AuthContext);
   const [isOpenDrawer, setIsOpenDrawer] = useState(false);
 
   const drawerOpenHandler = () => {
@@ -31,6 +29,13 @@ const NavBar = () => {
   const drawerCloseHandler = () => {
     setIsOpenDrawer(false);
   };
+
+  const navLinks = [
+    { title: "Home", path: "/", icon: <HomeIcon /> },
+    ...(!authCtx.isLoggedIn) ?
+    [{ title: "Login", path: "/auth/login", icon: <LoginIcon /> }] :
+    [{ title: "Logout", path: "/test", icon: <LogoutIcon /> }],
+  ];
   return (
     <>
       <AppBar position="static">
