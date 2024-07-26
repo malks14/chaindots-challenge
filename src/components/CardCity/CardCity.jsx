@@ -11,11 +11,13 @@ import {
 import { useNavigate, useLocation } from "react-router-dom";
 import StarIcon from "@mui/icons-material/Star";
 import CityContext from "../../store/city-context";
+import AuthContext from "../../store/auth-context";
 import AlertComponent from "../AlertComponent/AlertComponent";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 const CardCity = ({ city }) => {
   const cityCtx = useContext(CityContext);
+  const authCtx = useContext(AuthContext);
   const [error, setError] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
@@ -110,7 +112,7 @@ const CardCity = ({ city }) => {
             }}
           >
             <Button onClick={handleCityForecast}>Forecast</Button>
-            {cityCtx.isLoggedIn && (
+            {authCtx.isLoggedIn && (
               <Button
                 onClick={addCityFav}
                 data-testid="button"
