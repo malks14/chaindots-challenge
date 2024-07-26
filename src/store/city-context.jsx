@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useEffect } from "react";
 
 const CityContext = React.createContext({
   cities: [],
@@ -6,7 +6,7 @@ const CityContext = React.createContext({
 });
 
 const defaultCityState = {
-  cities: [],
+  cities: JSON.parse(localStorage.getItem('cities')) || [],
 };
 
 const cityReducer = (state, action) => {
@@ -23,6 +23,10 @@ const cityReducer = (state, action) => {
 
 export const CityContextProvider = ({ children }) => {
   const [cityState, dispatchCityAction] = useReducer(cityReducer, defaultCityState);
+
+  useEffect(() => {
+    localStorage.setItem('cities', JSON.stringify(cityState.cities));
+  }, [cityState.cities]);
 
   const addCityHandler = (city) => {
     dispatchCityAction({ type: "ADD_CITY", city });
