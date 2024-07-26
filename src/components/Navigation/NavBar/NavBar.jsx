@@ -50,7 +50,7 @@ const NavBar = () => {
       <AppBar position="static">
         <Toolbar sx={{ display: 'flex', justifyContent: 'space-between', alignContent: 'center' }}>
           <Typography sx={{cursor: 'pointer'}} component="a" onClick={() => navigate('/')}>Chaindots</Typography>
-          <Typography component="p">Hello, {authCtx.userName}</Typography>
+          {!authCtx.isLoggedIn ? "" : <Typography component="p">Hello, {authCtx.userName}</Typography>}
           <Box sx={{ display: { xs: "none", sm: "block" } }} className="navCtn">
             {navLinks.map((navLink) => (
               navLink.action ? (

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import CardForecast from "../../components/CardForecast/CardForecast";
 import { useParams } from "react-router-dom";
 import { CircularProgress, Container, Typography } from "@mui/material";
@@ -25,7 +25,6 @@ const CityForecastPage = () => {
           throw new Error("Failed to fetch weather data");
         }
         const response = await fetchedCityForecast.json();
-        console.log(response);
         setForecast(response);
       } catch (error) {
         setError("Something went wrong. Try again");
@@ -38,7 +37,7 @@ const CityForecastPage = () => {
 
   return (
     <Container maxWidth="xl" sx={{ mt: 2 }}>
-      <Typography align="center" component="h2" variant="h3">
+      <Typography align="center" component="h1" variant="h3">
         Forecast - {city.toUpperCase()}
       </Typography>
       {isLoading ? (

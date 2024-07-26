@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { Box, Button, TextField, CircularProgress } from "@mui/material";
+import { Box, Button, TextField, CircularProgress, Typography } from "@mui/material";
 import AuthContext from "../../../store/auth-context";
 
 
@@ -8,10 +8,7 @@ const LoginPage = () => {
   const authCtx = useContext(AuthContext);
   const navigate = useNavigate()
 
-  const [error, setError] = useState({
-    isError: false,
-    message: "",
-  });
+  const [error, setError] = useState('');
   const [userFormData, setUserFormData] = useState({
     userName: "",
     password: "",
@@ -36,10 +33,7 @@ const LoginPage = () => {
       setIsLoading(true)
       event.preventDefault();
       if (!validateUserName(userFormData.userName)) {
-        setError({
-            isError: true,
-            message: "Only alphabetical characters can be used"
-        })
+        setError("Only alphabetical characters can be used")
     }
   
       try {
@@ -56,7 +50,7 @@ const LoginPage = () => {
           authCtx.login(user.token, user.username);
           navigate("/");
       } catch (err) {
-          setError(err);
+          setError("Wrong username or password");
       }
       setIsLoading(false)
   };
@@ -69,8 +63,6 @@ const LoginPage = () => {
         variant="outlined"
         name="userName"
         required
-        error={error.isError}
-        helperText={error.message}
         value={userFormData.userName}
         onChange={onFormFieldChange}
       />
@@ -81,13 +73,12 @@ const LoginPage = () => {
         type="password"
         name="password"
         required
-        error={error.isError}
-        helperText={error.message}
         value={userFormData.password}
         onChange={onFormFieldChange}
       />
       <Button type="submit" variant="contained">Login</Button>
       {isLoading && <CircularProgress />}
+      {error && <Typography color="error">{error}</Typography>}
     </Box>
   );
 };
