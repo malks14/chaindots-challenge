@@ -84,6 +84,7 @@ const NavBar = () => {
             size="large"
             onClick={drawerOpenHandler}
             sx={{ display: { xs: "flex", sm: "none" } }}
+            data-testid="menu-button"
           >
             <MenuIcon />
           </IconButton>
@@ -95,6 +96,7 @@ const NavBar = () => {
         anchor="right"
         onClose={drawerCloseHandler}
         sx={{ display: { sm: "block", md: "none" } }}
+        data-testid="drawer"
       >
         <NavListDrawer navLinks={navLinks} drawerCloseHandler={drawerCloseHandler} logoutHandler={logoutHandler}/>
       </Drawer>

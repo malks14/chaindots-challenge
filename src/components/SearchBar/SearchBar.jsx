@@ -31,6 +31,7 @@ const SearchBar = ({setUserInput}) => {
     <Box
       component="form"
       onSubmit={handleSubmit}
+      data-testid="search-form"
     >
       <TextField id="city" label="City" variant="outlined" required error={error.isError} helperText={error.message} value={formCityData} onChange={onFormFieldChange}/>
     </Box>

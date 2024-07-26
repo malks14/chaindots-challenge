@@ -91,7 +91,7 @@ const CardCity = ({ city }) => {
           <Box sx={{ display: "flex", justifyContent: "space-around", width: '100%' }}>
             <Button onClick={handleCityForecast}>Forecast</Button>
 
-            <Button onClick={() => addCityFav(city)}>
+            <Button onClick={() => addCityFav(city)} data-testid="button">
               {cityCtx.isCityAdded(cityName) ? <DeleteIcon /> : <StarIcon />}
             </Button>
           </Box>
