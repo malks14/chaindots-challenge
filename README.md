@@ -46,5 +46,9 @@ To get started with the City Forecast App locally, follow these steps:
 
     User data can be found in public/users.json
 
+**Live version**
+
+Also, you can see the [live](https://chaindots-challenge.vercel.app/) version of the app deployed in Vercel.
+
 
 Feel free to adjust the contact information, repository URL, or any other details to better fit your project.
