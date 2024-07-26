@@ -8,7 +8,10 @@ const LoginPage = () => {
   const authCtx = useContext(AuthContext);
   const navigate = useNavigate()
 
-  const [error, setError] = useState('');
+  const [error, setError] = useState({
+    errorStatus: false,
+    errorMessage: ""
+  });
   const [userFormData, setUserFormData] = useState({
     userName: "",
     password: "",
@@ -25,16 +28,11 @@ const LoginPage = () => {
     }));
   };
 
-  const validateUserName = (userName) => {
-    const regexUserName = /^[a-zA-Z]+$/;
-    return regexUserName.test(userName);
-};
+
   const handleSubmit = async (event) => {
       setIsLoading(true)
       event.preventDefault();
-      if (!validateUserName(userFormData.userName)) {
-        setError("Only alphabetical characters can be used")
-    }
+
   
       try {
         const response = await fetch('/users.json');
@@ -50,7 +48,10 @@ const LoginPage = () => {
           authCtx.login(user.token, user.username);
           navigate("/");
       } catch (err) {
-          setError("Wrong username or password");
+        setError({
+          errorStatus: true,
+          errorMessage: "Wrong username or password"
+        });
       }
       setIsLoading(false)
   };
@@ -78,7 +79,7 @@ const LoginPage = () => {
       />
       <Button type="submit" variant="contained">Login</Button>
       {isLoading && <CircularProgress />}
-      {error && <Typography color="error">{error}</Typography>}
+      {error.errorStatus && <Typography color="error">{error.errorMessage}</Typography>}
     </Box>
   );
 };
