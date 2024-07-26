@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import React, { useContext, useState } from "react";
 import NavListDrawer from "./NavListDrawer";
 import {
   AppBar,
@@ -12,11 +12,10 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import HomeIcon from "@mui/icons-material/Home";
 import LoginIcon from "@mui/icons-material/Login";
+import LogoutIcon from "@mui/icons-material/Logout";
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import AuthContext from "../../../store/auth-context";
-import { useNavigate } from "react-router-dom";
-
 
 const NavBar = () => {
   const authCtx = useContext(AuthContext);
@@ -30,43 +29,55 @@ const NavBar = () => {
   const drawerCloseHandler = () => {
     setIsOpenDrawer(false);
   };
-  
+
   const logoutHandler = () => {
-    authCtx.logout();
-    navigate('/');
+    authCtx.logout(); // Assuming your context has a logout function
+    navigate("/"); // Redirect to login page or home page after logout
   };
 
   const navLinks = [
     { title: "Home", path: "/", icon: <HomeIcon /> },
     ...(!authCtx.isLoggedIn) ?
     [{ title: "Login", path: "/auth/login", icon: <LoginIcon /> }] :
-    [{title: "My Cities", path: "city/my-cities", icon: <FavoriteIcon />}],
+    [
+      { title: "My Cities", path: "/city/my-cities", icon: <FavoriteIcon /> },
+      { title: "Logout", action: logoutHandler, icon: <LogoutIcon /> },
+    ],
   ];
+
   return (
     <>
       <AppBar position="static">
-        <Toolbar component="nav" sx={{display: 'flex', justifyContent: 'space-between', alignContent: 'center'}}>
-          <Typography component="a" onClick={() => navigate('/')}>Chaindots</Typography>
-          {authCtx.isLoggedIn && (<Typography component="p">Hello, {authCtx.userName}</Typography>)}
+        <Toolbar sx={{ display: 'flex', justifyContent: 'space-between', alignContent: 'center' }}>
+          <Typography sx={{cursor: 'pointer'}} component="a" onClick={() => navigate('/')}>Chaindots</Typography>
+          <Typography component="p">Hello, {authCtx.userName}</Typography>
           <Box sx={{ display: { xs: "none", sm: "block" } }} className="navCtn">
             {navLinks.map((navLink) => (
-              <Button
-                color="inherit"
-                component={NavLink}
-                key={navLink.title}
-                to={navLink.path}
-                className={({ isActive }) => (isActive ? "active" : undefined)}
-              >
-                {navLink.title}
-              </Button>
+              navLink.action ? (
+                <Button
+                  key={navLink.title}
+                  color="inherit"
+                  onClick={navLink.action}
+                >
+                  {navLink.title}
+                </Button>
+              ) : (
+                <NavLink
+                  key={navLink.title}
+                  to={navLink.path}
+                  style={({ isActive }) => ({
+                    textDecoration: 'none',
+                    color: isActive ? 'secondary.main' : 'inherit', // Use your color theme or styling here
+                  })}
+                >
+                  <Button
+                    color="inherit"
+                  >
+                    {navLink.title}
+                  </Button>
+                </NavLink>
+              )
             ))}
-              {authCtx.isLoggedIn && (
-              <Button
-                color="inherit"
-                onClick={logoutHandler}
-              > Logout
-              </Button>
-            )}
           </Box>
           <IconButton
             color="inherit"
@@ -83,7 +94,7 @@ const NavBar = () => {
         open={isOpenDrawer}
         anchor="right"
         onClose={drawerCloseHandler}
-        sx={{ display: { xs: "block", sm: "none" } }}
+        sx={{ display: { sm: "block", md: "none" } }}
       >
         <NavListDrawer navLinks={navLinks} drawerCloseHandler={drawerCloseHandler} logoutHandler={logoutHandler}/>
       </Drawer>

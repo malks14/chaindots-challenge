@@ -21,6 +21,10 @@ img {
   flex-direction: column;
 }
 
+.navCtn a {
+  color: #ffffff
+}
+
 .navCtn a.active {
   padding-bottom: 0.25rem;
   border-bottom: 4px solid #ffffff;

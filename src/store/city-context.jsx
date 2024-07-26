@@ -3,6 +3,8 @@ import React, { useReducer, useEffect } from "react";
 const CityContext = React.createContext({
   cities: [],
   addCity: (city) => {},
+  removeCity: (cityName) => {},
+  isCityAdded: (cityName) => false,
 });
 
 const defaultCityState = {
@@ -16,6 +18,10 @@ const cityReducer = (state, action) => {
         ...state,
         cities: [...state.cities, action.city],
       };
+      case "REMOVE_CITY":
+        return {
+          cities: [...state.cities.filter((city) => city.city_name !== action.cityName)],
+        };
     default:
       return state;
   }
@@ -32,9 +38,19 @@ export const CityContextProvider = ({ children }) => {
     dispatchCityAction({ type: "ADD_CITY", city });
   };
 
+  const removeCityHandler = (cityName) => {
+    dispatchCityAction({ type: "REMOVE_CITY", cityName });
+  };
+
+  const isCityAdded = (cityName) => {
+    return cityState.cities.some(city => city.city_name === cityName);
+  };
+
   const cityContext = {
     cities: cityState.cities,
     addCity: addCityHandler,
+    removeCity: removeCityHandler,
+    isCityAdded,
   };
 
   return (

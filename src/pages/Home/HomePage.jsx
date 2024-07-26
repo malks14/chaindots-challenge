@@ -1,19 +1,22 @@
 import React, { useEffect, useState, useContext }  from "react";
-import { Container } from "@mui/material";
+import { Container, Typography } from "@mui/material";
 import CardCity from "../../components/CardCity/CardCity";
 import SearchBar from "../../components/SearchBar/SearchBar";
-import CityContext from "../../store/city-context";
+import { CircularProgress } from "@mui/material";
 
 
 const HomePage = () => {
   const [cities, setCities] = useState([]);
   const [userInput, setUserInput] = useState('')
-  const cityCtx = useContext(CityContext)
-  console.log(cityCtx);
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState("")
+
 
   useEffect(() => {
     const fetchWeather = async () => {
-
+      if (!userInput) return;
+      setError(false);
+      setIsLoading(true);
       try {
         const response = await fetch(`https://weatherapi-com.p.rapidapi.com/current.json?q=${userInput}`, {
           headers: {
@@ -26,21 +29,25 @@ const HomePage = () => {
         }
         const data = await response.json();
 
+        setIsLoading(false);
+        setError(false);
         setCities([data]);
       } catch (err) {
-        // setError(err.message);
+        setIsLoading(false);
+        setError("Please, try again!");
       }
     };
-    fetchWeather()
+    fetchWeather();
   }, [userInput])
 
   return (
     <Container maxWidth="xs" sx={{ mt: 2 }}>
       <h1>Chaindots - WeatherApp</h1>
       <SearchBar setUserInput={setUserInput}/>
-      {cities.map((city) => (
-        <CardCity key={city.location.name} city={city} />
+      {isLoading ? <CircularProgress /> : cities.map((city) => (
+        <CardCity key={city.location.name} city={city} /> 
       ))}
+      {error && <Typography color="error">{error}</Typography>}
     </Container>
   );
 };
