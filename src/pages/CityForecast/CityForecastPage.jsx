@@ -27,7 +27,7 @@ const CityForecastPage = () => {
         const response = await fetchedCityForecast.json();
         setForecast(response);
       } catch (error) {
-        setError("Something went wrong. Try again");
+        setError(true);
       } finally {
         setIsLoading(false);
       }
@@ -45,7 +45,7 @@ const CityForecastPage = () => {
       ) : (
         <CardForecast forecast={forecast} />
       )}
-      {error && <Typography color="error">{error}</Typography>}
+      {error && <Typography color="error">Something went wrong</Typography>}
     </Container>
   );
 };

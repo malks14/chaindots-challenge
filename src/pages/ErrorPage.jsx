@@ -5,10 +5,7 @@ import { Container, Typography } from "@mui/material";
 
 const ErrorPage = () => {
     const error = useRouteError();
-    console.log(error);
 
-    let title = 'An error occured';
-    let message = 'Something went wrong'
 
     if (error.status === 500) {
         message = error.data.message;

@@ -6,12 +6,11 @@ import CityFavDetailCard from "../../components/CityFavDetailCard/CityFavDetailC
 const CityFavDetailPage = () => {
   const [cityFavDetail, setCityFavDetail] = useState([]);
   const { cityFav } = useParams();
-  console.log(cityFav);
+  const [error, setError] = useState(false)
+
   useEffect(() => {
     const fetchCityDetails = async () => {
       if (!cityFav) return;
-      //   setError(false);
-      //   setIsLoading(true);
       try {
         const response = await fetch(
           `https://weatherapi-com.p.rapidapi.com/current.json?q=${cityFav}`,
@@ -26,14 +25,10 @@ const CityFavDetailPage = () => {
           throw new Error("Failed to fetch weather data");
         }
         const data = await response.json();
-        console.log(data);
 
-        // setIsLoading(false);
-        // setError(false);
         setCityFavDetail([data]);
       } catch (err) {
-        // setIsLoading(false);
-        // setError("Please, try again!");
+        setError(true)
       }
     };
     fetchCityDetails();
@@ -42,6 +37,7 @@ const CityFavDetailPage = () => {
     <Container maxWidth="l">
         <Typography component="h1" variant="h2" align="center">Country Fav Details</Typography>
       <CityFavDetailCard cityFav={cityFavDetail} />
+      {error &&  <Typography color="error">Something went wrong</Typography>}
     </Container>
   );
 };

@@ -19,7 +19,6 @@ const CardCity = ({ city }) => {
   const [error, setError] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
-  console.log(location.pathname);
 
   const navigate = useNavigate();
   const cityName = city.location?.name.trim().toLowerCase() || city.city_name;

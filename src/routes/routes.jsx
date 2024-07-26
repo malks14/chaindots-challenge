@@ -7,6 +7,9 @@ import CityForecastPage from "../pages/CityForecast/CityForecastPage";
 import MyCitiesPage from "../pages/MyCities/MyCitiesPage";
 import CityFavDetailPage from "../pages/CityFavDetailPage/CityFavDetailPage";
 
+import AuthenticatedRoute from "./AuthenticatedRoute";
+
+
 const routes = [
   {
     path: "/",
@@ -20,9 +23,12 @@ const routes = [
       },
       {
         path: "city/my-cities",
-        element: <MyCitiesPage />,
+        element: <AuthenticatedRoute element={<MyCitiesPage />} />,
       },
-      {path: 'city/my-cities/:cityFav', element: <CityFavDetailPage />}
+      {
+        path: "city/my-cities/:cityFav",
+        element: <AuthenticatedRoute element={<CityFavDetailPage />} />,
+      }
     ],
   },
   {
