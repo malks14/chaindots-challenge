@@ -23,8 +23,6 @@ const CardCity = ({ city }) => {
   const navigate = useNavigate();
   const cityName = city.location?.name.trim().toLowerCase() || city.city_name;
 
-
-
   const addCityFav = () => {
     if (cityCtx.isCityAdded(cityName)) {
       cityCtx.removeCity(cityName);
@@ -54,7 +52,7 @@ const CardCity = ({ city }) => {
     if (matches) {
       navigate(`/city/my-cities/${cityName}`);
     }
-  }
+  };
 
   return (
     <>
@@ -71,10 +69,10 @@ const CardCity = ({ city }) => {
       >
         <CardContent
           sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap: '0.5rem',
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: "0.5rem",
           }}
         >
           <Typography component="h3" variant="h3" sx={{ textAlign: "center" }}>
@@ -87,16 +85,20 @@ const CardCity = ({ city }) => {
             alt={city.current?.condition.text || city.city_condition}
           />
           <p>
-            <strong>Temperature</strong>: {city.current?.temp_c || city.city_temp}°C
+            <strong>Temperature</strong>:{" "}
+            {city.current?.temp_c || city.city_temp}°C
           </p>
           <p>
-            <strong>Condition:</strong> {city.current?.condition.text || city.city_condition}
+            <strong>Condition:</strong>{" "}
+            {city.current?.condition.text || city.city_condition}
           </p>
           <p>
-            <strong>Humidity:</strong> {city.current?.humidity || city.city_humidity}%
+            <strong>Humidity:</strong>{" "}
+            {city.current?.humidity || city.city_humidity}%
           </p>
           <p>
-            <strong>Wind Speed:</strong> {city.current?.gust_kph || city.city_wind_speed} km/h
+            <strong>Wind Speed:</strong>{" "}
+            {city.current?.gust_kph || city.city_wind_speed} km/h
           </p>
         </CardContent>
         <CardActions>
@@ -104,24 +106,34 @@ const CardCity = ({ city }) => {
             sx={{
               display: "flex",
               justifyContent: "space-around",
-              width: '100%',
+              width: "100%",
             }}
           >
             <Button onClick={handleCityForecast}>Forecast</Button>
-            <Button
-              onClick={addCityFav}
-              data-testid="button"
-              aria-label={cityCtx.isCityAdded(cityName) ? "Remove from favorites" : "Add to favorites"}
-            >
-              {cityCtx.isCityAdded(cityName) ? <DeleteIcon /> : <StarIcon />}
-            </Button>
+            {cityCtx.isLoggedIn && (
+              <Button
+                onClick={addCityFav}
+                data-testid="button"
+                aria-label={
+                  cityCtx.isCityAdded(cityName)
+                    ? "Remove from favorites"
+                    : "Add to favorites"
+                }
+              >
+                {cityCtx.isCityAdded(cityName) ? <DeleteIcon /> : <StarIcon />}
+              </Button>
+            )}
           </Box>
         </CardActions>
       </Card>
       <AlertComponent
         isOpen={isOpen}
         setIsOpen={setIsOpen}
-        alertText={cityCtx.isCityAdded(cityName) ? "City added to favorites" : "City removed from favorites"}
+        alertText={
+          cityCtx.isCityAdded(cityName)
+            ? "City added to favorites"
+            : "City removed from favorites"
+        }
         alertType={cityCtx.isCityAdded(cityName) ? "success" : "error"}
       />
     </>
