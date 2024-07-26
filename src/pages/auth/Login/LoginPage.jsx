@@ -53,7 +53,7 @@ const LoginPage = () => {
             user.username === userFormData.userName &&
             user.password === userFormData.password
         );
-          authCtx.login(user.token);
+          authCtx.login(user.token, user.username);
           navigate("/");
       } catch (err) {
           setError(err);

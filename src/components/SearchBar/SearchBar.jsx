@@ -2,11 +2,11 @@ import React, {useState, useContext} from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { Button, CircularProgress } from "@mui/material";
-import WeatherContext from "../../store/cityWeather-context";
+// import WeatherContext from "../../store/cityWeather-context";
 
 
-const SearchBar = () => {
-    const {fetchWeather} = useContext(WeatherContext)
+const SearchBar = ({setUserInput}) => {
+    // const {fetchWeather} = useContext(WeatherContext)
 
     const [formCityData, setFormCityData] = useState("");
     const [error, setError] = useState({
@@ -27,7 +27,9 @@ const SearchBar = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        fetchWeather(formCityData)
+        console.log(formCityData)
+        setUserInput(formCityData)
+        // fetchWeather(formCityData)
         // setIsLoading(true);
         // console.log(formCityData)
         // if (!validateCity(formCityData)) {

@@ -12,16 +12,17 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import HomeIcon from "@mui/icons-material/Home";
 import LoginIcon from "@mui/icons-material/Login";
-import LogoutIcon from "@mui/icons-material/Logout";
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import { NavLink } from "react-router-dom";
 import AuthContext from "../../../store/auth-context";
-
+import { useNavigate } from "react-router-dom";
 
 
 const NavBar = () => {
   const authCtx = useContext(AuthContext);
   const [isOpenDrawer, setIsOpenDrawer] = useState(false);
-
+  const navigate = useNavigate();
+  
   const drawerOpenHandler = () => {
     setIsOpenDrawer(true);
   };
@@ -29,18 +30,24 @@ const NavBar = () => {
   const drawerCloseHandler = () => {
     setIsOpenDrawer(false);
   };
+  
+  const logoutHandler = () => {
+    authCtx.logout();
+    navigate('/');
+  };
 
   const navLinks = [
     { title: "Home", path: "/", icon: <HomeIcon /> },
     ...(!authCtx.isLoggedIn) ?
     [{ title: "Login", path: "/auth/login", icon: <LoginIcon /> }] :
-    [{ title: "Logout", path: "/test", icon: <LogoutIcon /> }],
+    [{title: "My Cities", path: "city/my-cities", icon: <FavoriteIcon />}],
   ];
   return (
     <>
       <AppBar position="static">
-        <Toolbar>
-          <Typography sx={{ flexGrow: 1 }}>Chaindots</Typography>
+        <Toolbar component="nav" sx={{display: 'flex', justifyContent: 'space-between', alignContent: 'center'}}>
+          <Typography component="a" onClick={() => navigate('/')}>Chaindots</Typography>
+          {authCtx.isLoggedIn && (<Typography component="p">Hello, {authCtx.userName}</Typography>)}
           <Box sx={{ display: { xs: "none", sm: "block" } }} className="navCtn">
             {navLinks.map((navLink) => (
               <Button
@@ -53,6 +60,13 @@ const NavBar = () => {
                 {navLink.title}
               </Button>
             ))}
+              {authCtx.isLoggedIn && (
+              <Button
+                color="inherit"
+                onClick={logoutHandler}
+              > Logout
+              </Button>
+            )}
           </Box>
           <IconButton
             color="inherit"
@@ -71,7 +85,7 @@ const NavBar = () => {
         onClose={drawerCloseHandler}
         sx={{ display: { xs: "block", sm: "none" } }}
       >
-        <NavListDrawer navLinks={navLinks} drawerCloseHandler={drawerCloseHandler}/>
+        <NavListDrawer navLinks={navLinks} drawerCloseHandler={drawerCloseHandler} logoutHandler={logoutHandler}/>
       </Drawer>
     </>
   );

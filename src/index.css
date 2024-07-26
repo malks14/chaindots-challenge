@@ -28,6 +28,9 @@ img {
 }
 
 footer {
-  background-color: green;
+  padding: 2rem;
+  background-color: #424242;
   margin-top: auto;
+  color: #ffffff;
+  text-align: center;
 }
