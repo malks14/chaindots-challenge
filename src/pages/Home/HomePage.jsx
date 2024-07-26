@@ -13,18 +13,19 @@ const HomePage = () => {
 
   useEffect(() => {
     const fetchWeather = async () => {
+
       try {
         const response = await fetch(`https://weatherapi-com.p.rapidapi.com/current.json?q=${userInput}`, {
           headers: {
-            'x-rapidapi-key': 'faadcbaa11mshf995abef058b3f3p1f7bdcjsnd011b07b123b',
-            'x-rapidapi-host': 'weatherapi-com.p.rapidapi.com'
+            'x-rapidapi-key': `${import.meta.env.VITE_RAPIDAPI_KEY}`,
+            'x-rapidapi-host': `${import.meta.env.VITE_RAPIDAPI_HOST}`
           }
         });
         if (!response.ok) {
           throw new Error('Failed to fetch weather data');
         }
         const data = await response.json();
-        console.log(data)
+
         setCities([data]);
       } catch (err) {
         // setError(err.message);
