@@ -17,7 +17,7 @@ const CardForecast = ({ forecast: { forecast, current } }) => {
   const renderForecast = () => {
     return forecast?.forecastday.map((item) => (
       <Card key={item.date}>
-        <CardContent sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem'}}>
+        <CardContent sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem', width: 250, minHeight: '(400px, 600px)'}}>
           <Typography component="h3" variant="h4">{formatDate(item.date)}</Typography>
           <CardMedia
             component="img"
@@ -37,7 +37,7 @@ const CardForecast = ({ forecast: { forecast, current } }) => {
   const renderCurrent = () => {
     return (
       <Card>
-        <CardContent sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem'}}>
+        <CardContent sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem', width: 250, minHeight: '(400px, 600px)'}}>
           <Typography component="h3" variant="h4">Now</Typography>
           <CardMedia
             component="img"
@@ -60,6 +60,7 @@ const CardForecast = ({ forecast: { forecast, current } }) => {
         display: "flex",
         gap: 4,
         flexWrap: "wrap",
+        justifyContent: 'center'
       }}
     >
         {current && renderCurrent()}

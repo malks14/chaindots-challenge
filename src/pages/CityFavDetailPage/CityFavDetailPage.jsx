@@ -34,7 +34,7 @@ const CityFavDetailPage = () => {
     fetchCityDetails();
   }, [cityFav]);
   return (
-    <Container maxWidth="l">
+    <Container maxWidth="l" sx={{padding: '1rem'}}>
         <Typography component="h1" variant="h2" align="center">Country Fav Details</Typography>
       <CityFavDetailCard cityFav={cityFavDetail} />
       {error &&  <Typography color="error">Something went wrong</Typography>}

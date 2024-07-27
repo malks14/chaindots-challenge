@@ -36,7 +36,7 @@ const CityForecastPage = () => {
   }, [city]);
 
   return (
-    <Container maxWidth="xl" sx={{ mt: 2 }}>
+    <Container maxWidth="xl" sx={{ mt: 2, padding: '1rem' }}>
       <Typography align="center" component="h1" variant="h3">
         Forecast - {city.toUpperCase()}
       </Typography>

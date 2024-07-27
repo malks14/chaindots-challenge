@@ -7,7 +7,7 @@ const MyCitiesPage = () => {
   const { cities } = useContext(CityContext);
 
   return (
-    <Container sx={{ padding: 3 }}>
+    <Container sx={{ padding: 3, display: 'gris', placeItems: 'center' }}>
       <Typography component="h1" variant="h2" sx={{ textAlign: 'center' }}>
         My Cities
       </Typography>
@@ -18,7 +18,7 @@ const MyCitiesPage = () => {
         sx={{
           display: 'grid',
           gap: 2,
-          gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
           padding: 2,
         }}
       >
