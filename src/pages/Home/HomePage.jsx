@@ -41,7 +41,7 @@ const HomePage = () => {
   }, [userInput])
 
   return (
-    <Container maxWidth="xs" sx={{ mt: 2 }}>
+    <Container maxWidth="xs" sx={{ mt: 2, padding: '1rem', display: 'grid', placeItems: 'center' }}>
       <h1>Chaindots - WeatherApp</h1>
       <SearchBar setUserInput={setUserInput}/>
       {isLoading ? <CircularProgress /> : cities.map((city) => (
