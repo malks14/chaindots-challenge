@@ -42,7 +42,7 @@ const LoginPage = () => {
         const users = await response.json();
         const user = users.find(
           (user) =>
-            user.username === userFormData.userName &&
+            user.username.toLowerCase() === userFormData.userName.toLowerCase() &&
             user.password === userFormData.password
         );
           authCtx.login(user.token, user.username);
